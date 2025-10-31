@@ -34,7 +34,7 @@ Chạy các lệnh sau để tải mã nguồn:
 
 ```bash
 cd /www/wwwroot
-sudo git clone [https://github.com/tuilakhoa/AI-Studio.git](https://github.com/tuilakhoa/AI-Studio.git) your-domain
+sudo git clone https://github.com/tuilakhoa/AI-Studio-Web.git your-domain
 cd /www/wwwroot/your-domain
 ````
 
