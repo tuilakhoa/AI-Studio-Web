@@ -15,7 +15,7 @@ Tài liệu này hướng dẫn bạn **triển khai trực tiếp trên VPS**, 
 ## ⚙️ Yêu cầu hệ thống
 
 - VPS đã cài **aaPanel**
-- **Node.js 22.21.1** (qua module PM 2 Manager cài từ App Store)
+- **Node.js 22.21.1** (qua module Node.js Manager cài từ App Store) hoặc sử dụng câu lệnh terminal nvm install 22.21.1
 - **PM 2** để ứng dụng chạy nền và cài Node.js
 - **Nginx** làm web server
 - Có **tên miền hoạt động** (ví dụ: `your-domain`)
