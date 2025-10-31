@@ -56,9 +56,9 @@ Lệnh này sẽ tải toàn bộ package cần thiết từ `package.json`.
 
 ⚠️ *Quá trình này có thể mất vài phút tùy cấu hình VPS.*
 
-### 3️⃣ Cấu hình biến môi trường .env.local
+### 3️⃣ Cấu hình biến môi trường .env
 
-Tạo file `.env.local` (hoặc `.env`) trong thư mục `/www/wwwroot/your-domain`, rồi thêm:
+Tạo file `.env` trong thư mục `/www/wwwroot/your-domain`, rồi thêm:
 
 ```ini
 GEMINI_API_KEY=your_api_key_here
