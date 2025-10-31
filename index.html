@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chuyên Gia Headshot AI | AI Studio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Tải lên ảnh selfie, chọn phong cách, và để AI tạo ra một bức ảnh chân dung chuyên nghiệp cho bạn. Ứng dụng này sử dụng Gemini để biến những bức ảnh đời thường của bạn thành hình ảnh chuyên nghiệp, sẵn sàng cho công việc." />
+    <meta name="keywords" content="AI headshot, chuyên gia headshot AI, tạo ảnh chân dung, ghép ảnh AI, AI studio, Gemini API, chỉnh sửa ảnh AI, tạo video AI" />
+    <meta name="author" content="AI Studio" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#5b21b6">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Chuyên Gia Headshot AI | AI Studio" />
+    <meta property="og:description" content="Biến ảnh selfie của bạn thành ảnh chân dung chuyên nghiệp chỉ trong vài giây với sức mạnh của AI. Thử ngay!" />
+    <meta property="og:image" content="https://picsum.photos/seed/aistudio-og/1200/630" />
+    <!-- TODO: Thay thế bằng URL hình ảnh xem trước của bạn (kích thước đề xuất: 1200x630px) -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Chuyên Gia Headshot AI | AI Studio" />
+    <meta property="twitter:description" content="Biến ảnh selfie của bạn thành ảnh chân dung chuyên nghiệp chỉ trong vài giây với sức mạnh của AI. Thử ngay!" />
+    <meta property="twitter:image" content="https://picsum.photos/seed/aistudio-og/1200/630" />
+    <!-- TODO: Thay thế bằng URL hình ảnh xem trước của bạn -->
+    
+    <!-- Favicon & App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#8b5cf6">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="#5b21b6">
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <!-- TODO: Thêm các tệp biểu tượng (apple-touch-icon.png, favicon-*.png, site.webmanifest, v.v.) vào thư mục public của bạn -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0"
+  }
+}
+</script>
+  <style>
+      :root {
+        --color-bg-primary: #030712; /* gray-950 */
+        --color-bg-gradient-via: #1e1b4b; /* indigo-950 */
+        --color-text-primary: #f9fafb; /* gray-100 */
+        --color-text-secondary: #9ca3af; /* gray-400 */
+        --color-text-tertiary: #6b7280; /* gray-500 */
+        --color-accent-primary: #8b5cf6; /* purple-500 */
+        --color-accent-secondary: #6366f1; /* indigo-500 */
+        --color-border: rgba(255, 255, 255, 0.1);
+        --color-surface-primary: rgba(255, 255, 255, 0.05);
+        --color-surface-secondary: #1f2937; /* gray-800 */
+        --color-surface-tertiary: #374151; /* gray-700 */
+        --color-surface-hover: #4b5563; /* gray-600 */
+        --color-surface-dialog: #111827; /* gray-900 */
+        --color-icon-primary: var(--color-text-primary);
+        --color-icon-secondary: var(--color-text-secondary);
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+      }
+      #root {
+        background: linear-gradient(to bottom right, var(--color-bg-primary), var(--color-bg-gradient-via), var(--color-bg-primary));
+      }
+      .bg-white\/5 { background-color: var(--color-surface-primary); }
+      .bg-gray-700 { background-color: var(--color-surface-tertiary); }
+      .hover\:bg-gray-600:hover { background-color: var(--color-surface-hover); }
+      .bg-gray-800 { background-color: var(--color-surface-secondary); }
+      .bg-gray-900 { background-color: var(--color-surface-dialog); }
+      .border-white\/10 { border-color: var(--color-border); }
+      .text-gray-100 { color: var(--color-text-primary); }
+      .text-gray-200 { color: var(--color-text-primary); }
+      .text-gray-300 { color: var(--color-text-secondary); }
+      .text-gray-400 { color: var(--color-text-secondary); }
+      .text-gray-500 { color: var(--color-text-tertiary); }
+      .from-purple-600 { --tw-gradient-from: var(--color-accent-primary); --tw-gradient-to: transparent; }
+      .to-indigo-600 { --tw-gradient-to: var(--color-accent-secondary); }
+      
+      aside, header {
+        background-color: color-mix(in srgb, var(--color-bg-primary) 80%, transparent);
+        backdrop-filter: blur(16px);
+      }
+
+      button svg, a svg {
+        color: var(--color-icon-secondary);
+      }
+      button:hover svg, a:hover svg {
+        color: var(--color-icon-primary);
+      }
+      
+      /* --- New Landing Page Styles --- */
+      .feature-bar {
+        background-color: rgba(17, 24, 39, 0.7); /* gray-900 with opacity */
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 9999px;
+        padding: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
+      }
+      .feature-bar-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1rem;
+        border-radius: 9999px;
+        color: var(--color-text-secondary);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background-color: transparent;
+      }
+      .feature-bar-item:hover {
+        background-color: var(--color-surface-primary);
+        color: var(--color-text-primary);
+      }
+      .feature-bar-item.central {
+        background: linear-gradient(to top, rgba(31, 25, 62, 0.9), rgba(22, 21, 49, 0.9));
+        color: var(--color-text-primary);
+        transform: translateY(-20px) scale(1.15);
+        padding: 1rem 1.5rem;
+        border: 1px solid var(--color-accent-primary);
+        box-shadow: 0 0 20px 0px var(--color-accent-primary);
+      }
+      .feature-bar-item.central:hover {
+        box-shadow: 0 0 30px 5px var(--color-accent-primary);
+      }
+      .feature-bar-item svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-bottom: 0.25rem;
+        color: currentColor;
+      }
+      .more-dropdown {
+        background-color: #1F2937; /* gray-800 */
+        border: 1px solid var(--color-border);
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+      }
+      
+      /* --- Timeline Styles --- */
+      .timeline-container {
+        position: relative;
+        padding: 2rem 0;
+        max-width: 48rem; /* a nice width for the timeline content */
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, transparent, var(--color-accent-primary), transparent);
+        transform: translateX(-50%);
+      }
+      .timeline-item {
+        position: relative;
+        width: 50%;
+        padding: 1rem 2rem;
+        opacity: 0;
+      }
+      .timeline-item:nth-child(odd) {
+        left: 0;
+        padding-right: 4rem;
+      }
+      .timeline-item:nth-child(even) {
+        left: 50%;
+        padding-left: 4rem;
+      }
+      .timeline-item .timeline-dot {
+        position: absolute;
+        top: 1.5rem;
+        width: 20px;
+        height: 20px;
+        background-color: var(--color-surface-secondary);
+        border: 4px solid var(--color-accent-primary);
+        border-radius: 50%;
+        z-index: 10;
+        box-shadow: 0 0 10px var(--color-accent-primary);
+      }
+      .timeline-item:nth-child(odd) .timeline-dot {
+        right: -10px;
+        transform: translateX(50%);
+      }
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: -10px;
+        transform: translateX(-50%);
+      }
+      .timeline-content {
+        background-color: var(--color-surface-primary);
+        border: 1px solid var(--color-border);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .timeline-content:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px -5px var(--color-accent-primary);
+        border-color: var(--color-accent-primary);
+      }
+      .timeline-item:nth-child(odd) .timeline-content { text-align: right; }
+      .timeline-item:nth-child(even) .timeline-content { text-align: left; }
+
+      @media (max-width: 768px) {
+        .timeline-line { left: 20px; }
+        .timeline-item { width: 100%; padding-left: 4rem; padding-right: 1rem; }
+        .timeline-item:nth-child(odd),
+        .timeline-item:nth-child(even) {
+          left: 0;
+          text-align: left !important;
+        }
+        .timeline-item .timeline-dot {
+          left: 20px !important;
+          right: auto !important;
+        }
+         .timeline-item:nth-child(odd) .timeline-content,
+         .timeline-item:nth-child(even) .timeline-content { text-align: left; }
+      }
+
+      @keyframes slide-in {
+        from { opacity: 0; transform: translateY(50px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .timeline-item.is-visible {
+        animation: slide-in 0.6s ease-out forwards;
+      }
+
+      @keyframes slow-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+      .animate-slow-float {
+        animation: slow-float 8s ease-in-out infinite;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-100%); }
+      }
+      .animate-marquee {
+        animation: marquee 80s linear infinite;
+        will-change: transform;
+      }
+      .animate-marquee-reverse {
+        animation: marquee 80s linear infinite reverse;
+        will-change: transform;
+      }
+
+      html.reduce-motion *,
+      html.reduce-motion *::before,
+      html.reduce-motion *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
+      /* Styles for Compact Mode */
+      html.compact-mode main {
+          padding: 1rem;
+      }
+      html.compact-mode .p-4 { padding: 0.75rem; }
+      html.compact-mode .sm\:p-6 { padding: 1rem; }
+      html.compact-mode .lg\:p-8 { padding: 1.5rem; }
+      html.compact-mode .p-6 { padding: 1rem; }
+      html.compact-mode .py-4 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+      html.compact-mode .py-3 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+      html.compact-mode h1 { font-size: 1.5rem; } /* from text-2xl */
+      html.compact-mode h2 { font-size: 1.25rem; } /* from text-2xl */
+      html.compact-mode h3 { font-size: 1rem; } /* from text-xl */
+      html.compact-mode .gap-8 { gap: 1rem; }
+      html.compact-mode .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-y-reverse: 0;
+          margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+          margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+      }
+    </style>
+</head>
+  <body class="font-sans">
+    <div id="root" class="flex h-screen"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

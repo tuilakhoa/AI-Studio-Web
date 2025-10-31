@@ -1,0 +1,5 @@
+{
+  "name": "Chuyên Gia Headshot AI",
+  "description": "Tải lên ảnh selfie, chọn phong cách, và để AI tạo ra một bức ảnh chân dung chuyên nghiệp cho bạn. Ứng dụng này sử dụng Gemini để biến những bức ảnh đời thường của bạn thành hình ảnh chuyên nghiệp, sẵn sàng cho công việc.",
+  "requestFramePermissions": []
+}
