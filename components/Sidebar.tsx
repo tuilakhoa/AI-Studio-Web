@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from '../types';
+import { View, User } from '../types';
 
 interface SidebarProps {
   currentView: View;
@@ -7,6 +7,7 @@ interface SidebarProps {
   isExpanded: boolean;
   setIsExpanded: (expanded: boolean) => void;
   isMobileOpen: boolean;
+  currentUser: User | null;
 }
 
 const NavItem: React.FC<{
@@ -71,7 +72,7 @@ const NavSection: React.FC<{ title: string, isExpanded: boolean }> = ({ title, i
 };
 
 
-const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isExpanded, setIsExpanded, isMobileOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isExpanded, setIsExpanded, isMobileOpen, currentUser }) => {
   // FIX: Use 'as const' to infer the literal types for viewName, making them assignable to the 'View' type instead of the broader 'string' type.
   const allNavItems = [
     { section: 'Công cụ Chính', items: [
@@ -110,6 +111,9 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isExpand
       { viewName: 'community', icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>, text: 'Cộng đồng' },
       { viewName: 'tutorials', icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6-2.292m0 0v14.25" /></svg>, text: 'Hướng dẫn' },
     ]},
+    ...(currentUser?.role === 1 ? [{ section: 'Quản trị', items: [
+      { viewName: 'admin' as const, icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>, text: 'Admin' },
+    ]}] : []),
   ] as const;
 
   return (
