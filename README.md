@@ -16,7 +16,7 @@ Tài liệu này hướng dẫn bạn **triển khai trực tiếp trên VPS**, 
 
 - VPS đã cài **aaPanel**
 - **Node.js 22.21.1** (qua module Node.js Manager cài từ App Store) hoặc sử dụng câu lệnh terminal nvm install 22.21.1
-- **PM 2** để ứng dụng chạy nền và cài Node.js
+- **PM 2** để ứng dụng chạy nền
 - **Nginx** làm web server
 - Có **tên miền hoạt động** (ví dụ: `your-domain`)
 - Có **GEMINI_API_KEY** (API key hợp lệ của Google Gemini)
