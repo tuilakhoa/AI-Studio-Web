@@ -33,6 +33,7 @@ import TrainYourModel from './views/TrainYourModel';
 import TextureGenerator from './views/TextureGenerator';
 import RealtimeCanvas from './views/RealtimeCanvas';
 import CanvasEditor from './views/CanvasEditor';
+import AdminDashboard from './views/AdminDashboard';
 
 
 const App: React.FC = () => {
@@ -100,6 +101,10 @@ const App: React.FC = () => {
 
 
   const handleLoginSuccess = (user: User) => {
+    // For demo purposes, assign admin role based on email
+    if (user.email.toLowerCase() === 'admin@aistudio.dev') {
+        user.role = 1;
+    }
     setCurrentUser(user);
     localStorage.setItem('ai-studio-user', JSON.stringify(user));
     setShowAuthModal(false);
@@ -193,6 +198,8 @@ const App: React.FC = () => {
         return <AccountView setCurrentView={setCurrentView}/>;
       case 'settings':
         return <SettingsView setCurrentView={setCurrentView} />;
+      case 'admin':
+        return <AdminDashboard currentUser={currentUser} />;
       default:
         return <LandingPage setCurrentView={setCurrentView} onPromptSelect={handlePromptSelect} />;
     }
@@ -213,6 +220,7 @@ const App: React.FC = () => {
         isExpanded={isSidebarExpanded}
         setIsExpanded={setIsSidebarExpanded}
         isMobileOpen={isMobileSidebarOpen}
+        currentUser={currentUser}
       />
       <div className={`flex-1 flex flex-col ${isSidebarExpanded ? 'lg:ml-64' : 'lg:ml-24'} transition-all duration-300 h-screen`}>
         <Header 
