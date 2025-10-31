@@ -32,7 +32,7 @@ export interface GeneratedInspiration {
 }
 
 
-export type View = 'landing' | 'headshot' | 'scene' | 'freestyle' | 'video' | 'history' | 'restore' | 'inspiration' | 'tutorials' | 'blender' | 'fullbody' | 'outfit' | 'pose' | 'backgroundswap' | 'faceswap' | 'stylizer' | 'morph' | 'outpainting' | 'animeConverter' | 'account' | 'settings' | 'community' | 'upscaler' | 'trainmodel' | 'texturegen' | 'realtimeCanvas' | 'canvasEditor' | 'flowstate';
+export type View = 'landing' | 'headshot' | 'scene' | 'freestyle' | 'video' | 'history' | 'restore' | 'inspiration' | 'tutorials' | 'blender' | 'fullbody' | 'outfit' | 'pose' | 'backgroundswap' | 'faceswap' | 'stylizer' | 'morph' | 'outpainting' | 'animeConverter' | 'account' | 'settings' | 'community' | 'upscaler' | 'trainmodel' | 'texturegen' | 'realtimeCanvas' | 'canvasEditor' | 'flowstate' | 'admin';
 
 export interface HistoryItem {
   id: string;
@@ -61,6 +61,7 @@ export interface User {
   id: string;
   email: string;
   token: string; // Thêm token để quản lý session
+  role: 0 | 1; // 0 = user, 1 = admin
 }
 
 export interface CommunityPost {
@@ -70,4 +71,21 @@ export interface CommunityPost {
   author: string;
   likes: number;
   type: HistoryItem['type'];
+}
+
+export interface FeatureFlag {
+  id: number;
+  feature_key: string;
+  name: string;
+  is_enabled: boolean;
+  description: string;
+}
+
+export interface SeoSetting {
+  id: number;
+  page_key: string;
+  name: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
 }
