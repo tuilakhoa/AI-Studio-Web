@@ -43,7 +43,8 @@ const AuthView: React.FC<AuthViewProps> = ({ onLoginSuccess, onClose }) => {
       const mockUser: User = {
         id: 'user-123-abc', // UUID từ database
         email: email,
-        token: 'fake-jwt-token-for-demonstration' // JWT từ backend
+        token: 'fake-jwt-token-for-demonstration', // JWT từ backend
+        role: 0, // 0 = user
       };
       onLoginSuccess(mockUser);
     }, 1500);
@@ -86,7 +87,7 @@ const AuthView: React.FC<AuthViewProps> = ({ onLoginSuccess, onClose }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="you@example.com"
+              placeholder="admin@aistudio.dev"
             />
           </div>
           <div>
