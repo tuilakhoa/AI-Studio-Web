@@ -66,7 +66,6 @@ GEMINI_API_KEY=your_api_key_here
 
 🔑 Thay `your_api_key_here` bằng key Gemini thật của bạn.
 
-Nếu bạn không có, hãy truy cập https://aistudio.google.com/app/apikey để tạo mới.
 
 ### 4️⃣ Build project
 
