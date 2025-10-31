@@ -1,6 +1,6 @@
 # ⚡ AI Studio Deployment Guide (VPS + aaPanel + Nginx + PM2)
 
-Triển khai **AI Studio** chính thức lên **VPS (aaPanel)** với **Node.js 22.21.1 (hoặc bất kỳ phiên bản khác)**, **PM2**, và **Nginx**.  
+Triển khai **AI Studio** chính thức lên **VPS (aaPanel)** với **Node.js 22.x**, **PM2**, và **Nginx**.  
 Chạy online 24/7 — nhanh, ổn định, sẵn sàng cho môi trường sản phẩm thực tế.
 
 ---
@@ -15,7 +15,7 @@ Tài liệu này hướng dẫn bạn **triển khai trực tiếp trên VPS**, 
 ## ⚙️ Yêu cầu hệ thống
 
 - VPS đã cài **aaPanel**
-- **Node.js 22.21.1** (qua module Node.js Manager cài từ App Store) hoặc sử dụng câu lệnh terminal nvm install 22.21.1
+- **Node.js 22.x** (qua module Node.js Manager cài từ App Store) hoặc sử dụng câu lệnh terminal nvm install 22.x
 - **PM 2** để ứng dụng chạy nền
 - **Nginx** làm web server
 - Có **tên miền hoạt động** (ví dụ: `your-domain`)
@@ -74,7 +74,7 @@ Nếu bạn đang dùng `nvm`, mỗi lần build cần nạp lại môi trườn
 
 ```bash
 source ~/.bashrc
-nvm use 22.21.1
+nvm use 22.x
 cd /www/wwwroot/your-domain
 npm run build
 ```
@@ -82,7 +82,7 @@ npm run build
 ✅ **Giải thích:**
 
   * `source ~/.bashrc` → nạp lại cấu hình nvm.
-  * `nvm use 22.21.1` → chọn Node.js 22.21.1.
+  * `nvm use 22.x` → chọn Node.js 22.x.
   * `npm run build` → tạo thư mục `dist/` chứa bản production sẵn sàng deploy.
 
 ⚠️ *Nếu sửa code mà web chưa cập nhật, chỉ cần chạy lại 3 lệnh này.*
