@@ -54,7 +54,10 @@ const handleApiError = (error: any, context: string, fallbackMessage: string): n
 
 
 export const generateHeadshot = async (imageFile: File, stylePrompt: string, aspectRatio: string): Promise<string> => {
-  // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+  if (!process.env.API_KEY) {
+    throw new Error("Biến môi trường API_KEY chưa được đặt.");
+  }
+
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
@@ -98,7 +101,9 @@ export const generateHeadshot = async (imageFile: File, stylePrompt: string, asp
 };
 
 export const refineImage = async (base64Image: string, mimeType: string, editPrompt: string): Promise<string> => {
-  // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+  if (!process.env.API_KEY) {
+    throw new Error("Biến môi trường API_KEY chưa được đặt.");
+  }
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
@@ -133,7 +138,9 @@ export const editImageWithMask = async (
     maskDataUrl: string,
     editPrompt: string
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -167,7 +174,9 @@ export const removeObjectWithMask = async (
     mimeType: string,
     maskDataUrl: string
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -197,7 +206,9 @@ export const removeObjectWithMask = async (
 };
 
 export const composeScene = async (subjectFile: File, backgroundFile: File): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -260,7 +271,9 @@ export const replaceSubjectInScene = async (
     backgroundFile: File,
     maskDataUrl: string
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -321,7 +334,9 @@ export const replaceSubjectInScene = async (
 };
 
 export const restorePhoto = async (imageFile: File, colorize: boolean, clarityLevel: 'subtle' | 'medium' | 'strong'): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -367,7 +382,6 @@ export const generateVideoFromImage = async (
     onProgress: (message: string) => void
 ): Promise<string> => {
     onProgress("Đang khởi tạo trình tạo video...");
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     try {
@@ -410,7 +424,6 @@ export const generateVideoFromImage = async (
             throw new Error("Không tìm thấy link tải video trong phản hồi.");
         }
         
-        // FIX: Use process.env.API_KEY as per the guidelines.
         const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
         if (!response.ok) {
             throw new Error(`Tải video thất bại: ${response.statusText}`);
@@ -430,7 +443,9 @@ export const generateImageFromPrompt = async (
     prompt: string,
     aspectRatio: "1:1" | "3:4" | "4:3" | "9:16" | "16:9"
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     try {
         const response = await ai.models.generateImages({
@@ -465,7 +480,6 @@ export const generateVideoFromPrompt = async (
     onProgress: (message: string) => void
 ): Promise<string> => {
     onProgress("Đang khởi tạo trình tạo video...");
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     try {
@@ -502,7 +516,6 @@ export const generateVideoFromPrompt = async (
             throw new Error("Không tìm thấy link tải video trong phản hồi.");
         }
         
-        // FIX: Use process.env.API_KEY as per the guidelines.
         const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
         if (!response.ok) {
             throw new Error(`Tải video thất bại: ${response.statusText}`);
@@ -520,7 +533,9 @@ export const generateVideoFromPrompt = async (
 
 
 export const upscaleImage = async (base64Image: string, mimeType: string): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -548,7 +563,9 @@ export const upscaleImage = async (base64Image: string, mimeType: string): Promi
 };
 
 export const generatePromptFromImage = async (imageFile: File): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     try {
         const imagePart = await fileToGenerativePart(imageFile);
@@ -568,7 +585,9 @@ export const generatePromptFromImage = async (imageFile: File): Promise<string> 
 };
 
 export const extractColorPalette = async (base64Image: string, mimeType: string): Promise<string[]> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -616,7 +635,9 @@ export const blendImages = async (
     imageFiles: File[],
     prompt: string
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -649,7 +670,9 @@ export const blendImages = async (
 };
 
 export const generateBlendSuggestion = async (imageFiles: File[]): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -673,7 +696,9 @@ export const generateBlendSuggestion = async (imageFiles: File[]): Promise<strin
 };
 
 export const generateEnhancedPrompt = async (prompt: string): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -705,7 +730,6 @@ export const tryOnOutfit = async (
             throw new Error("Phải cung cấp mô tả trang phục hoặc hình ảnh trang phục.");
         }
 
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const personPart = await fileToGenerativePart(personFile);
         
@@ -754,7 +778,6 @@ export const tryOnOutfit = async (
 
 export const transferPose = async (poseFile: File, personFile: File): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const posePart = await fileToGenerativePart(poseFile);
         const personPart = await fileToGenerativePart(personFile);
@@ -785,7 +808,6 @@ export const transferPose = async (poseFile: File, personFile: File): Promise<st
 
 export const swapBackground = async (subjectFile: File, backgroundFile?: File, backgroundPrompt?: string): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const subjectPart = await fileToGenerativePart(subjectFile);
         const parts: ({ inlineData: { data: string; mimeType: string; } } | { text: string })[] = [subjectPart];
@@ -824,7 +846,6 @@ export const swapBackground = async (subjectFile: File, backgroundFile?: File, b
 
 export const swapFaces = async (sourceFaceFile: File, targetImageFile: File): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const sourcePart = await fileToGenerativePart(sourceFaceFile);
         const targetPart = await fileToGenerativePart(targetImageFile);
@@ -849,7 +870,6 @@ export const swapFaces = async (sourceFaceFile: File, targetImageFile: File): Pr
 
 export const stylizePortrait = async (imageFile: File, stylePrompt: string): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const imagePart = await fileToGenerativePart(imageFile);
         const textPart = { text: `You are an expert AI artist.
@@ -875,7 +895,6 @@ export const stylizePortrait = async (imageFile: File, stylePrompt: string): Pro
 
 export const morphObject = async (imageFile: File, morphPrompt: string): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const imagePart = await fileToGenerativePart(imageFile);
         const textPart = { text: `You are an expert AI concept artist.
@@ -905,7 +924,6 @@ export const outpaintImage = async (
     direction: 'up' | 'down' | 'left' | 'right' | 'panoramic'
 ): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
         const img = await new Promise<HTMLImageElement>((resolve, reject) => {
@@ -1099,7 +1117,9 @@ export const outpaintImage = async (
 };
 
 export const generateOutpaintingSuggestion = async (imageFile: File): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     try {
         const imagePart = await fileToGenerativePart(imageFile);
@@ -1125,7 +1145,9 @@ export const generateOutpaintingSuggestion = async (imageFile: File): Promise<st
 };
 
 export const summarizeConversationForTitle = async (messages: ChatMessage[]): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -1151,7 +1173,9 @@ export const summarizeConversationForTitle = async (messages: ChatMessage[]): Pr
 
 export const generateDifferentAngle = async (base64Image: string, mimeType: string, anglePrompt: string): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+        if (!process.env.API_KEY) {
+            throw new Error("Biến môi trường API_KEY chưa được đặt.");
+        }
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
         const imagePart = base64ToGenerativePart(base64Image, mimeType);
@@ -1177,7 +1201,9 @@ export const applyColorStyle = async (
     styleFile: File
 ): Promise<string> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+        if (!process.env.API_KEY) {
+            throw new Error("Biến môi trường API_KEY chưa được đặt.");
+        }
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const sourcePart = base64ToGenerativePart(sourceBase64, sourceMimeType);
         const stylePart = await fileToGenerativePart(styleFile);
@@ -1200,7 +1226,9 @@ export const convertToAnime = async (
     stylePrompt?: string
 ): Promise<{ imageUrl: string; quote: string | null }> => {
     try {
-        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+        if (!process.env.API_KEY) {
+            throw new Error("Biến môi trường API_KEY chưa được đặt.");
+        }
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
         const imagePart = await fileToGenerativePart(imageFile);
@@ -1240,7 +1268,9 @@ export const convertToAnime = async (
 };
 
 export const generateTextureMaps = async (prompt: string): Promise<{ [key: string]: string }> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const mapTypes = ['albedo', 'normal', 'roughness', 'ambient occlusion'];
@@ -1280,7 +1310,9 @@ export const trainStyle = async (
     imageFiles: File[],
     prompt: string
 ): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     try {
@@ -1312,7 +1344,9 @@ export const trainStyle = async (
 };
 
 export const generateFromSketch = async (sketchDataUrl: string, prompt: string, guidanceStrength: number): Promise<string> => {
-    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+    if (!process.env.API_KEY) {
+        throw new Error("Biến môi trường API_KEY chưa được đặt.");
+    }
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     try {
         const imagePart = base64ToGenerativePart(sketchDataUrl, 'image/png');
