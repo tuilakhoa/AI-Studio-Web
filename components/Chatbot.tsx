@@ -174,6 +174,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ requireAuth, currentUser }) => {
 
 
     useEffect(() => {
+        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const history = activeSession ? activeSession.messages.map(m => ({
             role: m.role,
@@ -232,6 +233,9 @@ const Chatbot: React.FC<ChatbotProps> = ({ requireAuth, currentUser }) => {
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
+        
         if (!input.trim() || isLoading || !chatRef.current) return;
 
         if (!currentUser && !requireAuth()) {
