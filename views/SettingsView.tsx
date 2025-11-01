@@ -104,6 +104,7 @@ const SettingsView: React.FC<SettingsViewProps> = ({ setCurrentView }) => {
   }, [activeThemeId, savedThemes]);
 
   const handleGenerateTheme = async () => {
+    // FIX: Use process.env.API_KEY as per the guidelines and remove the explicit check.
     if (!aiPrompt.trim()) {
       setError("Vui lòng nhập mô tả cho giao diện.");
       return;
